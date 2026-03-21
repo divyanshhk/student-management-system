@@ -9,12 +9,8 @@ import com.divyansh.studentmanagementsystem.project.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,9 +32,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<StudentResponseDTO> getAllStudent(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<StudentResponseDTO> getAllStudent(Pageable pageable) {
+//        Sort sort = direction.equalsIgnoreCase("desc") ?
+//                Sort.by(sortBy).descending():
+//                Sort.by(sortBy).ascending();
+//        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         Page<Student> students = studentRepository.findAll(pageable);
+
         return students.map(student -> modelMapper.map(student, StudentResponseDTO.class));
 
     }
@@ -58,6 +58,12 @@ public class StudentServiceImpl implements StudentService {
             throw new ResourceNotFoundException("student not found");
         }
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<StudentResponseDTO> searchStudentByName(String title, Pageable pageable) {
+        Page<Student> students = studentRepository.findByNameContaining(title, pageable);
+        return students.map (student -> modelMapper.map(student, StudentResponseDTO.class));
     }
 
 

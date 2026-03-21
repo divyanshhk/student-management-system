@@ -1,11 +1,11 @@
 package com.divyansh.studentmanagementsystem.project.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,16 +16,17 @@ public class Lecturer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lecturerId;
+    private Long id;
 
     private String name;
 
-    private Long mobileNo;
-
+    @Column(unique = true)
     private String email;
 
-    private String address;
+    private String department;
 
+    @OneToMany
+    private List<Course> courses = new ArrayList<>();
 
 
 }

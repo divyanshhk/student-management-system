@@ -19,11 +19,12 @@ public class Student {
 
     private int age;
 
-    private Long phone;
+    private String phone;
 
+    @Column(unique = true)
     private String email;
 
     //private String department;
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private List<Enrollment> enrollments;
 }

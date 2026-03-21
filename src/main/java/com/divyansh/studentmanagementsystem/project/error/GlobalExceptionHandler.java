@@ -5,8 +5,14 @@ import com.divyansh.studentmanagementsystem.project.error.exception.ResourceNotF
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.lang.reflect.MalformedParametersException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -21,5 +27,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleDuplicateEnrollmentException(DuplicateEnrollmentException ex) {
         ApiError apiError = new ApiError("Already enrolled ", HttpStatus.CONFLICT);
         return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("status", 400);
+//        response.put("errors", errors);
+//        response.put("timestamp", LocalDateTime.now());
+
+        return ResponseEntity.badRequest().body(errors);
     }
 }

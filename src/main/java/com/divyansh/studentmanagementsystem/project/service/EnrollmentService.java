@@ -5,6 +5,8 @@ import com.divyansh.studentmanagementsystem.project.dto.CourseResponseDTO;
 import com.divyansh.studentmanagementsystem.project.dto.EnrollmentResponseDTO;
 import com.divyansh.studentmanagementsystem.project.dto.StudentResponseDTO;
 import com.divyansh.studentmanagementsystem.project.dto.StudentSimpleResponseDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,11 +15,13 @@ public interface EnrollmentService {
 
     EnrollmentResponseDTO enrollStudent(Long studentId, Long courseId);
 
-    List<CourseResponseDTO> getAllCoursesOfStudent(Long studentId);
+    Page<CourseResponseDTO> getAllCoursesOfStudent(Long studentId, Pageable pageable);
 
-    List<StudentSimpleResponseDTO> getAllStudentsOfCourse(Long courseId);
+    Page<StudentSimpleResponseDTO> getAllStudentsOfCourse(Long courseId, Pageable pageable);
 
-    List<EnrollmentResponseDTO> getAllEnrollments();
+    Page<EnrollmentResponseDTO> getAllEnrollments(Pageable pageable);
 
     EnrollmentResponseDTO getEnrollmentById(Long enrollmentId);
+
+    void deleteEnrollmentById(Long enrollmentId);
 }

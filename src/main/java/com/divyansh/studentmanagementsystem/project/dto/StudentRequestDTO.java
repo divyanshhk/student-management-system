@@ -17,13 +17,14 @@ public class StudentRequestDTO {
     @Size(min = 3 , max = 20, message = "size should be between 3 or 20")
     private String name;
 
-    @Min(5)
+    @Min(value = 5, message = "Age must be greater than 5")
+    @Max(value = 100, message = "Age must be less than 100")
     private int age;
 
     @Pattern(regexp = "^[6-9]\\d{9}$", message = "Invalid phone number")
     private String phone;
 
-    @Email
-    @NotBlank(message = "email is required")
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email is required")
     private String email;
 }

@@ -3,11 +3,16 @@ package com.divyansh.studentmanagementsystem.project.implementation;
 import com.divyansh.studentmanagementsystem.project.dto.CourseRequestDTO;
 import com.divyansh.studentmanagementsystem.project.dto.CourseResponseDTO;
 import com.divyansh.studentmanagementsystem.project.entity.Course;
+import com.divyansh.studentmanagementsystem.project.entity.Lecturer;
 import com.divyansh.studentmanagementsystem.project.error.exception.ResourceNotFoundException;
 import com.divyansh.studentmanagementsystem.project.repository.CourseRepository;
+import com.divyansh.studentmanagementsystem.project.repository.LecturerRepository;
 import com.divyansh.studentmanagementsystem.project.service.CourseService;
+import com.divyansh.studentmanagementsystem.project.service.LecturerService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +23,7 @@ import java.util.stream.Collectors;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
+    private final LecturerRepository lecturerRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -35,11 +41,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseResponseDTO> getAllCourses() {
-        return courseRepository.findAll()
-                .stream()
-                .map(course -> modelMapper.map(course, CourseResponseDTO.class))
-                .collect(Collectors.toList());
+    public Page<CourseResponseDTO> getAllCourses(Pageable pageable) {
+
+        Page<Course> courses = courseRepository.findAll(pageable);
+
+        return courses.map(course -> modelMapper.map(course, CourseResponseDTO.class));
     }
 
     @Override
@@ -56,6 +62,27 @@ public class CourseServiceImpl implements CourseService {
            throw new ResourceNotFoundException("Resource not found");
         }
         courseRepository.deleteById(id);
+    }
+
+    @Override
+    public CourseResponseDTO assignLecturer(Long courseId, Long lecturerId) {
+
+        Course course  = courseRepository.findById(courseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Resource not found "));
+
+        Lecturer lecturer = lecturerRepository.findById(lecturerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+
+        course.setLecturer(lecturer);
+        courseRepository.save(course);
+        return modelMapper.map(course, CourseResponseDTO.class);
+
+    }
+
+    @Override
+    public Page<CourseResponseDTO> searchCourseByName(String title, Pageable pageable) {
+        Page<Course> courses = courseRepository.findByTitleContaining(title, pageable);
+        return courses.map(course -> modelMapper.map(course, CourseResponseDTO.class));
     }
 
 

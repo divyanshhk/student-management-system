@@ -14,6 +14,8 @@ import com.divyansh.studentmanagementsystem.project.repository.StudentRepository
 import com.divyansh.studentmanagementsystem.project.service.EnrollmentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +33,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     public EnrollmentResponseDTO enrollStudent(Long studentId, Long courseId) {
 
         boolean exists = enrollmentRepository.existsByStudentIdAndCourseId(studentId, courseId);
+
         if (exists) {
             throw new DuplicateEnrollmentException("Student already enrolled in this course");
         }
@@ -55,38 +58,41 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public List<CourseResponseDTO> getAllCoursesOfStudent(Long studentId) {
-        List<Enrollment> enrollments  = enrollmentRepository.findByStudentId(studentId);
+    public Page<CourseResponseDTO> getAllCoursesOfStudent(Long studentId, Pageable pageable) {
+        Page<Enrollment> enrollments  = enrollmentRepository.findByStudentId(studentId, pageable);
 
         if (enrollments.isEmpty()) {
             throw new ResourceNotFoundException("No enrollment found for studentId : " + studentId);
         }
 
-        return enrollments.stream()
-                .map(e -> modelMapper.map(e.getCourse(), CourseResponseDTO.class))
-                .collect(Collectors.toList());
+        return enrollments
+                .map(enrollment -> modelMapper.map(enrollment.getCourse(), CourseResponseDTO.class));
+
     }
 
     @Override
-    public List<StudentSimpleResponseDTO> getAllStudentsOfCourse(Long courseId) {
-        List<Enrollment> enrollments = enrollmentRepository.findByCourseId(courseId);
+    public Page<StudentSimpleResponseDTO> getAllStudentsOfCourse(Long courseId, Pageable pageable) {
+
+        Page<Enrollment> enrollments = enrollmentRepository.findByCourseId(courseId, pageable);
 
         if (enrollments.isEmpty()) {
             throw new ResourceNotFoundException("No enrollment found for courseId : " + courseId);
         }
         return enrollments
-                .stream()
-                .map(e -> modelMapper.map(e.getStudent(), StudentSimpleResponseDTO.class))
-                .collect(Collectors.toList());
+                .map(enrollment -> modelMapper.map(enrollment.getStudent(), StudentSimpleResponseDTO.class));
 
     }
 
     @Override
-    public List<EnrollmentResponseDTO> getAllEnrollments() {
-        return enrollmentRepository.findAll()
-                .stream()
-                .map(enrollment -> modelMapper.map(enrollment, EnrollmentResponseDTO.class))
-                .collect(Collectors.toList());
+    public Page<EnrollmentResponseDTO> getAllEnrollments(Pageable pageable) {
+
+        Page<Enrollment> enrollments =  enrollmentRepository.findAll(pageable);
+
+        if (enrollments.isEmpty()) {
+            throw new ResourceNotFoundException("No enrollment found");
+        }
+        return enrollments
+                .map(enrollment -> modelMapper.map(enrollment, EnrollmentResponseDTO.class));
     }
 
     @Override
@@ -95,5 +101,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         return modelMapper.map(enrollment, EnrollmentResponseDTO.class);
     }
 
+    @Override
+    public void deleteEnrollmentById(Long enrollmentId) {
+        if(!enrollmentRepository.existsById(enrollmentId)) {
+            throw new ResourceNotFoundException("Resource not found");
+        }
+        enrollmentRepository.deleteById(enrollmentId);
+    }
 
 }
