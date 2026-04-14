@@ -77,7 +77,7 @@ public class EnrollmentController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{enrollment}")
     public ResponseEntity<ApiResponse<Object>> deleteEnrollmentById(@PathVariable Long enrollmentId) {
 
         enrollmentService.deleteEnrollmentById(enrollmentId);
