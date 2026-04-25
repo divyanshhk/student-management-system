@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    height: 100vh;
+}
+.dashboard{
+    display:flex;
+    height:100vh;
+    background: linear-gradient(to right, #141e30, #243b55);
+}
+
+.sidebar{
+    width: 200px;
+    background:#0a192f;
+    color: white;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border-radius: 0 15px 15px 0;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+
+    position: relative;
+    z-index: 2;
+}
+.sidebar ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar li {
+    margin: 15px 0;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s
+}
+.sidebar li:hover {
+    background-color: rgba(255,255,255,0.1);
+    padding-left: 15px;
+    border-radius: 5px;
+}
+.sidebar-footer { 
+    padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    bottom : 20px; position: absolute;
+}
+.sidebar-footer button {
+    padding: 10px 20px;
+}
+
+.main {
+    flex: 1;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.main h1 {
+    margin-bottom: 20px;
+}
+.content{
+    width: 100%;
+    max-width: 1100px;
+}
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.stat-card {
+    flex: 1;
+    background: #0a192f;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    position: relative;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+}
+.stat-card h2 {
+    margin: 0;
+    font-size: 24px;
+}
+.stat-card p {
+    margin: 5px 0 0;
+    color: #aaa;
+}
+.bottom-section {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+.activity {
+    margin-top: 30px;
+    flex: 2px;
+}
+.activity p {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+.activity p:hover {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+
+}
+.actions button{
+    background: transparent;
+    color: cyan;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid cyan;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    background: #00ffcc;
+    color: black;
+}
+.action-section {
+    margin-top: 30px;
+    flex: 1;
+
+}
+.activity, .action-section {
+    background: rgba(10,25,47,0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.logout-btn {
+    width: 100%;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.logout-btn:hover {
+    background:red;
+    color: white;
+}

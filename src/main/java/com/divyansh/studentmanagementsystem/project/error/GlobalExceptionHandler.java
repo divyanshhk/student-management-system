@@ -4,13 +4,10 @@ import com.divyansh.studentmanagementsystem.project.error.exception.DuplicateEnr
 import com.divyansh.studentmanagementsystem.project.error.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.lang.reflect.MalformedParametersException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 

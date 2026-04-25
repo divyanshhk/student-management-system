@@ -8,15 +8,11 @@ import com.divyansh.studentmanagementsystem.project.error.exception.ResourceNotF
 import com.divyansh.studentmanagementsystem.project.repository.CourseRepository;
 import com.divyansh.studentmanagementsystem.project.repository.LecturerRepository;
 import com.divyansh.studentmanagementsystem.project.service.CourseService;
-import com.divyansh.studentmanagementsystem.project.service.LecturerService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

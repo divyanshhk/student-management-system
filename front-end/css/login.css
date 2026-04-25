@@ -1,0 +1,55 @@
+body{
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #141e30, #243b55);
+}
+
+form{
+    background: rgba(10, 25, 47, 0.95);
+    padding: 40px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 10px 30px rgba(0,0, 0, 0.5);
+}
+
+input{
+    width: 100%;
+    padding: 10px 0;
+    margin: 20px 0;
+
+    border: none;
+    border-bottom: 1px solid #aaa;
+
+    background: transparent;
+    color: white;
+
+}
+input:focus{
+    outline: none;
+    border-bottom: 1px solid cyan;
+}
+button{
+    margin-top: 20px;
+    padding: 8px 15px;
+
+    background: transparent;
+    color: cyan;
+    border: 1px solid cyan;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover{
+    background-color: cyan;
+    color: black;
+}
+h1{
+    text-align: center;
+    color: white;
+}
+p{
+    text-align: center;
+    color: white;
+}

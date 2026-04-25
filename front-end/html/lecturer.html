@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturers</title>
+    <link rel="stylesheet" href="/SMS/css/lecturer.css">
+</head>
+<body>
+    <div class="main">
+        <header>
+        <h1>Lecturers</h1>
+    </header>
+    <div class="stats">
+        <div class="stat-card">
+            <h2>23</h2>
+            <p>Total Lecturers
+            </p>
+        </div>
+        <div class="stat-card">
+            <h2>16</h2>
+            <p>Active Lecturers</p>
+        </div>
+    </div>
+
+    <div class="top-bar">
+        <div class="search-container">
+            <label for="text" class="search-label">search:</label>
+            <input type="text" class="search-section" placeholder="search lecturer">
+        </div>
+        <button class="add-lecturer">add Lecturer</button>
+    </div>
+
+    <div class="assign-section">
+        <h2>Assign Lecturers</h2>
+        <select name="" id="">
+            <option value="">Lecturer</option>
+        </select>
+        <select name="" id="">
+            <option value="">Course</option>
+        </select>
+        <button class="assign-btn">assign</button> 
+    </div>
+    <div class="table-container">
+        <table class="lecturer-table">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Assigned Course</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Dr. Dheeraj Nishad</td>
+                    <td>dheeraj1nishad@lpu.com</td>
+                    <td>Data Structure and Algorithm</td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Dr. Arpita Dutta</td>
+                    <td>arpita1dutta@lpu.com</td>
+                    <td>Python</td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Dr. Madhur Saxena</td>
+                    <td>madhur1saxena@lpu.com</td>
+                    <td>Web Development</td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</body>
+</html>
