@@ -34,7 +34,7 @@ public class SecurityConfig {
                         "/swagger-ui.html"
                 ).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/students/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/students/**", "/students").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(
