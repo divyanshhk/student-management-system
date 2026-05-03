@@ -8,7 +8,10 @@ public class StudentManagementSystemApplication {
 
 
 	public static void main(String[] args) {
-		SpringApplication.run(StudentManagementSystemApplication.class, args);
+
+        System.out.println("🚨 VERSION 2 DEPLOYED 🚨");
+
+        SpringApplication.run(StudentManagementSystemApplication.class, args);
 	}
 
 }
