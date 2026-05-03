@@ -30,12 +30,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
+        String path = request.getServletPath();
+        System.out.println("PATH: " + path);
+
+        // ✅ SKIP AUTH ENDPOINTS (CRITICAL FIX)
+        if (path.startsWith("/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         System.out.println("HEADER: " + request.getHeader("Authorization"));
 
         String authHeader = request.getHeader("Authorization");
 
         String token = null;
-        String  username = null;
+        String username = null;
 
         // Step 1: Check Authorization header
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
@@ -50,7 +59,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (jwtUtil.validateToken(token, userDetails)) {
 
-                System.out.println("Authorities: "+ userDetails.getAuthorities());
+                System.out.println("Authorities: " + userDetails.getAuthorities());
+
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 

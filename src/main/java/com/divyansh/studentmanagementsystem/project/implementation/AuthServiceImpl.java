@@ -55,20 +55,23 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
-        try{
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequestDTO.getUsername(),
-                            loginRequestDTO.getPassword()
-                    )
-            );
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid username and password");
+
+        System.out.println("LOGIN SERVICE START");
+
+        User user = userRepository.findByUsername(loginRequestDTO.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        System.out.println("User found: " + user.getUsername());
+
+        // ✅ CORRECT password check
+        if (!passwordEncoder.matches(loginRequestDTO.getPassword(), user.getPassword())) {
+            System.out.println("Password match: false");
+            throw new RuntimeException("Invalid password");
         }
 
-        User user = userRepository.findByUsername(loginRequestDTO.getUsername()).orElseThrow(() -> new RuntimeException("User not found"));
+        System.out.println("Password match: true");
 
-        String token = jwtUtil.generateToken(loginRequestDTO.getUsername());
+        String token = jwtUtil.generateToken(user.getUsername());
 
         return LoginResponseDTO.builder()
                 .token(token)
@@ -76,8 +79,5 @@ public class AuthServiceImpl implements AuthService {
                 .role(user.getRole().name())
                 .build();
     }
-
-
-
 
 }
