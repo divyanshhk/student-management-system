@@ -34,11 +34,21 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponseDTO>> login(@RequestBody LoginRequestDTO loginRequestDTO) {
 
-        LoginResponseDTO login =authService.login(loginRequestDTO);
+        try {
+            System.out.println("🔥 LOGIN API HIT");
+            System.out.println("Request Data: " + loginRequestDTO);
 
-        ApiResponse<LoginResponseDTO> response = new ApiResponse<>(true, "login successful", login);
+            LoginResponseDTO login = authService.login(loginRequestDTO);
 
-        return ResponseEntity.ok(response);
+            ApiResponse<LoginResponseDTO> response = new ApiResponse<>(true, "login successful", login);
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            System.out.println("❌ ERROR IN LOGIN:");
+            e.printStackTrace();
+            throw e; // keep this so error still propagates
+        }
 
 
     }

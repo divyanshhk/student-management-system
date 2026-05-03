@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService customUserDetailsService;
 
-    
+
 
     @Override
     protected void doFilterInternal(
