@@ -3,6 +3,7 @@ package com.divyansh.studentmanagementsystem.project.config;
 import com.divyansh.studentmanagementsystem.project.implementation.CustomUserDetailsService;
 import com.divyansh.studentmanagementsystem.project.security.JwtAuthenticationFilter;
 import com.divyansh.studentmanagementsystem.project.security.JwtUtil;
+import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(auth ->  auth
+                .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll() // ✅ THIS IS THE MAGIC LINE
                 .requestMatchers(
                         "/auth/**",
                         "/error",
@@ -34,9 +36,8 @@ public class SecurityConfig {
                         "/swagger-ui.html"
                 ).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/students/**", "/students").permitAll()
-//                                .hasAnyRole("USER", "ADMIN")
-//                .anyRequest().authenticated()
+                .requestMatchers("/students/**", "/students").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
                 )
                 .addFilterBefore(
                         jwtAuthenticationFilter,
