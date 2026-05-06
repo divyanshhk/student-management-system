@@ -33,6 +33,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         System.out.println("PATH: " + path);
 
+        // ✅ ADD "/error" HERE. This is critical for seeing real error messages!
+        if (path.startsWith("/auth") || path.startsWith("/error") || path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // ✅ SKIP AUTH ENDPOINTS (CRITICAL FIX)
         if (path.startsWith("/auth")) {
             filterChain.doFilter(request, response);
