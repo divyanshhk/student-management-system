@@ -30,4 +30,8 @@ public class PaginationResponseDTO<T> {
         this.last = pageData.isLast();
     }
 
+    public List<T> getContent() {
+        return content;
+    }
+
 }
