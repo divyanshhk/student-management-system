@@ -12,8 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+
+
 public class PaginationResponseDTO<T> {
     private List<T> content;
     private int pageNumber;
@@ -30,10 +30,6 @@ public class PaginationResponseDTO<T> {
         this.totalElements = pageData.getTotalElements();
         this.totalPages = pageData.getTotalPages();
         this.last = pageData.isLast();
-    }
-
-    public List<T> getContent() {
-        return content;
     }
 
 }
