@@ -12,8 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-
-
 public class PaginationResponseDTO<T> {
     private List<T> content;
     private int pageNumber;
