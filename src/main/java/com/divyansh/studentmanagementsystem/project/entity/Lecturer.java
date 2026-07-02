@@ -25,7 +25,7 @@ public class Lecturer {
 
     private String department;
 
-    @OneToMany
+    @OneToMany(mappedBy = "lecturer")
     private List<Course> courses = new ArrayList<>();
 
 
